@@ -1,0 +1,45 @@
+Verspätungsquote % = DIVIDE (
+    CALCULATE (
+        COUNTROWS ( Orders ),
+        Orders[DeliveryStatus] = "Verspätet"
+    ),
+    CALCULATE (
+        COUNTROWS ( Orders ),
+        Orders[DeliveryStatus] IN { "Pünktlich", "Verspätet" }
+    ),
+    0
+)
+
+
+
+Rabatt =
+    ( 'Order Details'[UnitPrice] * 'Order Details'[Quantity] )
+        * 'Order Details'[Discount]
+
+
+Effektiver Rabatt in % = DIVIDE (
+    SUMX (
+        'Order Details',
+        'Order Details'[UnitPrice] * 'Order Details'[Quantity]
+            * 'Order Details'[Discount]
+    ),
+    SUMX (
+        'Order Details',
+        'Order Details'[UnitPrice] * 'Order Details'[Quantity]
+    ),
+    0
+)
+
+
+Effektiver Rabatt total in % = DIVIDE (
+    SUMX (
+        'Order Details',
+        'Order Details'[UnitPrice] * 'Order Details'[Quantity]
+            * 'Order Details'[Discount]
+    ),
+    SUMX (
+        'Order Details',
+        'Order Details'[UnitPrice] * 'Order Details'[Quantity]
+    ),
+    0
+)
